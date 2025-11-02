@@ -214,40 +214,52 @@ async function commitNewEventToCsv(token, csvPath){
   const path = csvPath;
   const apiUrl = `https://api.github.com/repos/${config.github_user}/${config.github_repo}/contents/${path}`;
   const headers = { Authorization: 'token ' + token, Accept: 'application/vnd.github.v3+json' };
+
   const r = await fetch(apiUrl, { headers });
   if(!r.ok) throw new Error("Failed to fetch file from GitHub API: " + r.statusText);
+
   const js = await r.json();
   const sha = js.sha;
-  const content = atob(js.content.replace(/\n/g,""));
-  const evt = readForm();
- const sanitize = (v) => {
-  if (!v) return "";
-  return String(v).replace(/"/g, '""'); // escape quotes for CSV
-};
+  const content = atob(js.content.replace(/\n/g, ""));
 
-const p = evt.extendedProps || {};
-const row = [
-  p["Event Name"] || "",
-  p["Category"] || "",
-  p["Date"] || "",
-  p["Time"] || "",
-  p["Venue"] || "",
-  p["Organizer"] || "",
-  p["Stakeholders"] || "",
-  p["Deliverables"] || "",
-  p["Promotion Plan"] || "",
-  p["Budget/Support Required"] || "",
-  p["Status"] || "",
-  p["Notes"] || ""
-]
-.map(x => `"${sanitize(x)}"`)  // ✅ wrap in quotes properly
-.join(",");
-  const newContent = content.trim() + "\n" + row + "\n";
-  const payload = { message: "Add event via web UI: " + (p["Event Name"] || ""), content: btoa(unescape(encodeURIComponent(newContent))), sha: sha, branch: config.branch };
-  const upd = await fetch(apiUrl, { method: 'PUT', headers: {...headers, 'Content-Type':'application/json'}, body: JSON.stringify(payload) });
-  if(!upd.ok){ const t = await upd.text(); throw new Error("Update failed: " + upd.status + " " + t); }
-  return true;
+  const evt = readForm();
+
+  const sanitize = v => {
+    if(!v) return "";
+    return String(v).replace(/"/g, '""');
+  };
+
+  const newRow = [
+    sanitize(evt.extendedProps["Event Name"]),
+    sanitize(evt.extendedProps["Date"]),
+    sanitize(evt.extendedProps["Time"]),
+    sanitize(evt.extendedProps["Category"]),
+    sanitize(evt.extendedProps["Venue"]),
+    sanitize(evt.extendedProps["Organizer"]),
+    sanitize(evt.extendedProps["Stakeholders"]),
+    sanitize(evt.extendedProps["Status"]),
+    sanitize(evt.extendedProps["Notes"])
+  ].map(x => `"${x}"`).join(",");
+
+  const updated = content.trim() + "\n" + newRow;
+  const b64 = btoa(updated);
+
+  const body = {
+    message: `Add event: ${evt.extendedProps["Event Name"]}`,
+    content: b64,
+    sha: sha,
+    branch: config.branch
+  };
+
+  const wr = await fetch(apiUrl, {
+    method: "PUT",
+    headers,
+    body: JSON.stringify(body),
+  });
+
+  if(!wr.ok) throw new Error("GitHub update failed: " + wr.statusText);
 }
+
 function str_replace_quotes(s){ return String(s||"").replace(/"/g,'""'); }
 window.addEventListener('load', ()=> buildUI());
 </script>
