@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Event Calendar | Planner</title>
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script src="papaparse.min.js"></script>
+
+<style>
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+header {
+  padding: 16px;
+  background: #f2f2f2;
+  text-align: center;
+  font-size: 18px;
+}
+#calendar {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<header><b>Annual Events Calendar</b></header>
+
+<div id="calendar"></div>
+
+<script>
+// Change file path if you rename the CSV
+const CSV_FILE = "../data/2025-events.csv";
+
+// Load CSV & render calendar
+Papa.parse(CSV_FILE, {
+  download: true,
+  header: true,
+  complete: function(results) {
+    const events = results.data
+      .filter(r => r.Date && r["Event Name"])
+      .map(r => ({
+        title: r["Event Name"],
+        start: r.Date, 
+        description: r.Notes || "",
+        extendedProps: r
+      }));
+
+    const calendar = new FullCalendar.Calendar(
+      document.getElementById("calendar"),
+      {
+        initialView: "dayGridMonth",
+        events: events,
+        eventClick: info => {
+          const p = info.event.extendedProps;
+          alert(
+            info.event.title + "\n\n" +
+            "Date: " + (p.Date || info.event.startStr) + "\n" +
+            "Category: " + (p.Category || "") + "\n" +
+            "Venue: " + (p.Venue || "") + "\n" +
+            "Organizer: " + (p.Organizer || "") + "\n" +
+            "Notes: " + (p.Notes || "")
+          );
+        }
+      }
+    );
+
+    calendar.render();
+  }
+});
+</script>
+
+</body>
+</html>
